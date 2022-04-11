@@ -1,6 +1,7 @@
 {
     "env": {
         "browser": true,
+        "node": true, // 追記しました。
         "es2021": true
     },
     "extends": [
