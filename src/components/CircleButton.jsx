@@ -8,7 +8,7 @@ export default function CircleButton(props) {
   const { style, name } = props;
   return (
     <View style={[styles.circleButton, style]}>
-      <Icon name={name} size={32} color="#fff" />
+      <Icon name={name} size={24} color="#fff" />
     </View>
   );
 }
