@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 // カスタマイズするのであれば、native-stackではなく、stackを使う。
 // import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
+import firebase from 'firebase';
 
 import MemoListScreen from './src/screens/MemoListScreen';
 import MemoDetailScreen from './src/screens/MemoDetailScreen';
@@ -11,14 +12,20 @@ import MemoEditScreen from './src/screens/MemoEditScreen';
 import MemoCreateScreen from './src/screens/MemoCreateScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
+import { firebaseConfig } from './env';
 
 const Stack = createStackNavigator();
+
+// 既に初期化されているアプリの数を取得する
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="LogIn"
+        initialRouteName="SignUp"
         screenOptions={{
           headerStyle: { backgroundColor: '#467FD3' },
           headerTitleStyle: { color: '#fff' },
