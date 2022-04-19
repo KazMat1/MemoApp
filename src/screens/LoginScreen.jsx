@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet, Text, TextInput, View, TouchableOpacity,
 } from 'react-native';
@@ -7,12 +7,33 @@ import SubmitButton from '../components/SubmitButton';
 
 export default function LoginScreen(props) {
   const { navigation } = props;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   return (
     <View style={styles.container}>
       <View style={styles.inner}>
         <Text style={styles.title}>Log In</Text>
-        <TextInput style={styles.input} value="Email Adress" />
-        <TextInput style={styles.input} value="Password" />
+        <TextInput
+          style={styles.input}
+          value={email}
+          onChangeText={(text) => { setEmail(text); }}
+          // 行頭の大文字を防いでくれる
+          autoCapitalize="none"
+          keyboardType="email-address"
+          placeholder="メールアドレス"
+          // iOSで保存してくれる
+          textContentType="emailAddress"
+        />
+        <TextInput
+          style={styles.input}
+          value={password}
+          onChangeText={(text) => { setPassword(text); }}
+          autoCapitalize="none"
+          placeholder="パスワード"
+          // パスワードの時はつけておく
+          secureTextEntry
+          textContentType="password"
+        />
         <SubmitButton
           buttonText="Log in"
           onPress={() => {
@@ -55,7 +76,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   input: {
-    color: '#ddd',
+    color: '#000',
     fontSize: 16,
     height: 48,
     backgroundColor: '#fff',

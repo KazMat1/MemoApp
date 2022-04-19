@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 // カスタマイズするのであれば、native-stackではなく、stackを使う。
-// import {  } from '@react-navigation/native-stack';
+// import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 
 import MemoListScreen from './src/screens/MemoListScreen';
