@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { string, func } from 'prop-types';
+import { string, func, shape } from 'prop-types';
 
 export default function SubmitButton(props) {
-  const { buttonText, onPress } = props;
+  const { buttonText, onPress, style } = props;
   return (
-    <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
+    <TouchableOpacity style={[styles.buttonContainer, style]} onPress={onPress}>
       <Text style={styles.buttonText}>{buttonText}</Text>
     </TouchableOpacity>
   );
@@ -25,10 +25,13 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
 });
+
 SubmitButton.propTypes = {
   buttonText: string.isRequired,
   onPress: func,
+  style: shape(),
 };
 SubmitButton.defaultProps = {
   onPress: null,
+  style: null,
 };
