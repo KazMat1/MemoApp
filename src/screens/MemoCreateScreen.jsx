@@ -5,13 +5,16 @@ import {
 import firebase from 'firebase';
 
 import CircleButton from '../components/CircleButton';
+import Loading from '../components/Loading';
 import KeyboardSafeView from '../components/KeyboardSafeView';
 
 export default function MemoCreateScreen(props) {
   const { navigation } = props;
   const [bodyText, setBodyText] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   function handlePress() {
+    setLoading(true); // ユーザー情報を取得する前に、ローディング処理を走らせる
     // 現在ログインしているユーザーの取得
     const { currentUser } = firebase.auth();
     const db = firebase.firestore();
@@ -21,16 +24,20 @@ export default function MemoCreateScreen(props) {
       bodyText,
       updatedAt: new Date(),
     })
-      .then((docRef) => {
+      .then((docRef) => { // success
         console.log('Document written with ID: ', docRef.id);
         navigation.goBack();
       })
-      .catch((error) => {
+      .catch((error) => { // failed
         console.error('Error adding document: ', error);
+      })
+      .then(() => {
+        setLoading(false); // エラーハンドリングの後に、loadingをfalseにする
       });
   }
   return (
     <KeyboardSafeView style={styles.container}>
+      <Loading isLoading={isLoading} />
       <View style={styles.inputContainer}>
         <TextInput
           value={bodyText}

@@ -6,14 +6,17 @@ import { shape, string } from 'prop-types';
 import firebase from 'firebase';
 
 import CircleButton from '../components/CircleButton';
+import Loading from '../components/Loading';
 import KeyboardSafeView from '../components/KeyboardSafeView';
 
 export default function MemoEditScreen(props) {
   const { navigation, route } = props;
   const { id, bodyText } = route.params;
   const [body, setBody] = useState(bodyText);
+  const [isLoading, setLoading] = useState(false);
 
   function handlePress() {
+    setLoading(true); // ユーザー情報を取得する前に、ローディング処理を走らせる
     const { currentUser } = firebase.auth();
     if (currentUser) {
       const db = firebase.firestore();
@@ -28,12 +31,16 @@ export default function MemoEditScreen(props) {
         })
         .catch((error) => {
           Alert.alert(error.code);
+        })
+        .then(() => {
+          setLoading(false);
         });
     }
   }
 
   return (
     <KeyboardSafeView style={styles.container}>
+      <Loading isLoading={isLoading} />
       <View style={styles.inputContainer}>
         <TextInput
           value={body}
