@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import {
-  StyleSheet, TextInput, View,
+  StyleSheet, TextInput, View, Alert,
 } from 'react-native';
 import firebase from 'firebase';
 
 import CircleButton from '../components/CircleButton';
 import Loading from '../components/Loading';
 import KeyboardSafeView from '../components/KeyboardSafeView';
+import { translateErrors } from '../utils';
 
 export default function MemoCreateScreen(props) {
   const { navigation } = props;
@@ -24,12 +25,12 @@ export default function MemoCreateScreen(props) {
       bodyText,
       updatedAt: new Date(),
     })
-      .then((docRef) => { // success
-        console.log('Document written with ID: ', docRef.id);
+      .then(() => { // success
         navigation.goBack();
       })
       .catch((error) => { // failed
-        console.error('Error adding document: ', error);
+        const errorMsg = translateErrors(error.code);
+        Alert.alert(errorMsg.title, errorMsg.description);
       })
       .then(() => {
         setLoading(false); // エラーハンドリングの後に、loadingをfalseにする

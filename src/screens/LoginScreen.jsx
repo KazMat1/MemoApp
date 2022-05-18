@@ -31,9 +31,7 @@ export default function LoginScreen(props) {
   function handlePress() {
     setLoading(true); // ボタン押下時にloadingを読み込む
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const { user } = userCredential;
-        console.log(user.uid);
+      .then(() => {
         navigation.reset({
           index: 0,
           routes: [{ name: 'MemoList' }],
