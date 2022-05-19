@@ -1,5 +1,5 @@
-import 'react-native-gesture-handler';
 import React from 'react';
+import { LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 // カスタマイズするのであれば、native-stackではなく、stackを使う。
 // import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -24,6 +24,8 @@ if (firebase.apps.length === 0) {
 }
 
 const Stack = createStackNavigator();
+// 警告を出しているモジュールを無視する
+LogBox.ignoreLogs(['Setting a timer']);
 
 export default function App() {
   return (

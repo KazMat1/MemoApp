@@ -29,9 +29,10 @@ export default function MemoList(props) {
           text: '削除する',
           style: 'destructive', // iOSのみのオプションで文字が赤くなる
           onPress: () => {
-            ref.delete().catch(() => {
-              Alert.alert('削除に失敗しました');
-            });
+            ref.delete()
+              .catch(() => {
+                Alert.alert('削除に失敗しました');
+              });
           },
         },
       ]);
@@ -44,7 +45,7 @@ export default function MemoList(props) {
         style={styles.memoListItem}
         onPress={() => { navigation.navigate('MemoDetail', { id: item.id }); }}
       >
-        <View>
+        <View style={styles.memoInner}>
           <Text style={styles.memoListItemTitle} numberOfLines={1}>{item.bodyText}</Text>
           <Text style={styles.memoListItemDate}>{dateToString(item.updatedAt)}</Text>
         </View>
@@ -91,6 +92,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 19,
     borderBottomWidth: 1,
     borderColor: 'rgba(0, 0, 0, 0.15)',
+  },
+  memoInner: {
+    flex: 1,
   },
   memoListItemTitle: {
     fontSize: 16,
